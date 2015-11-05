@@ -69,7 +69,7 @@ class SignRequest extends AbstractRequest
         $xmlDocument = new \DomDocument();
         $xmlDocument->loadXML($xml) or die("Invalid XML");
         $xsltDocument = new \DOMDocument();
-        $xsltDocument->load('http://www.sat.gob.mx/sitio_internet/cfd/3/cadenaoriginal_3_2/cadenaoriginal_3_2.xslt');
+        $xsltDocument->load(__DIR__ . '/../../resources/xslt/3.2/cadenaoriginal_3_2.xslt');
 
         $xsltProcessor = new \XSLTProcessor;
         $xsltProcessor->importStyleSheet($xsltDocument);
@@ -93,6 +93,8 @@ class SignRequest extends AbstractRequest
         /** @var \Argentum\Common\Document\AbstractDocument $document */
         $document = $this->getDocument();
         $xml = $document->render('xml');
+        $xml = $this->stampXml($xml);
+        $this->setUnsignedXml($xml);
 
         $data = [
             'text2CFDI'     => base64_encode($xml),

@@ -36,9 +36,9 @@ abstract class AbstractRequest extends CommonAbstractRequest
      *
      * @return string
      */
-    public function getUserPass()
+    public function getUserPassword()
     {
-        return $this->getParameter('userPass');
+        return $this->getParameter('userPassword');
     }
 
     /**
@@ -47,9 +47,9 @@ abstract class AbstractRequest extends CommonAbstractRequest
      * @param $value
      * @return CommonAbstractRequest
      */
-    public function setUserPass($value)
+    public function setUserPassword($value)
     {
-        return $this->setParameter('userPass', $value);
+        return $this->setParameter('userPassword', $value);
     }
 
     /**
@@ -173,8 +173,8 @@ abstract class AbstractRequest extends CommonAbstractRequest
     public function getData()
     {
         $data = [
-            'UserId'        => $this->getUserId(),
-            'UserPass'      => $this->getUserPass(),
+            'UserID'        => $this->getUserId(),
+            'UserPass'      => $this->getUserPassword(),
             'emisorRFC'     => $this->getIssuerRfc(),
         ];
 
@@ -188,7 +188,8 @@ abstract class AbstractRequest extends CommonAbstractRequest
     {
         try {
             $soapClient = new \SoapClient($this->getEndpoint(), array('trace' => 1));
-            $response = (array) $soapClient->__soapCall($this->getFunction(), $data);
+            $function = $this->getFunction();
+            $response = (array) $soapClient->$function((object) $data);
         } catch (\SoapFault $e) {
             $response = [
                 'code' => $e->getCode(),

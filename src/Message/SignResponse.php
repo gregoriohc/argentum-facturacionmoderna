@@ -1,12 +1,17 @@
 <?php namespace Argentum\FacturacionModerna\Message;
-use Argentum\Common\Message\RequestInterface;
 
 /**
  * Facturacion Moderna Sign Response
  */
 class SignResponse extends Response
 {
-    public function __construct(RequestInterface $request, $data)
+    /**
+     * SignResponse constructor
+     *
+     * @param SignRequest $request
+     * @param mixed $data
+     */
+    public function __construct(SignRequest $request, $data)
     {
         parent::__construct($request, $data);
 
@@ -31,38 +36,66 @@ class SignResponse extends Response
      */
     public function getReference()
     {
-        $reference = false;
-
         if (isset($this->data['xml'])) {
             try {
                 $xml = simplexml_load_string($this->data['xml']);
                 $xml->registerXPathNamespace("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
                 $tfd = $xml->xpath('//tfd:TimbreFiscalDigital');
-                $reference = (string)$tfd[0]['UUID'];
+                return (string)$tfd[0]['UUID'];
             } catch (\Exception $e) {
+                return false;
             }
         }
 
-        return $reference;
+        return false;
     }
 
     /**
-     * Get response XML
-     *
-     * @return string
+     * @return array
      */
-    public function getXml()
+    public function getFiles()
     {
-        return $this->data['xml'];
+        $files = [];
+
+        $files[] = [
+            'name'      => 'signed',
+            'extension' => 'xml',
+            'content'   => $this->data['xml'],
+        ];
+
+        /** @var SignRequest $this->request */
+        $files[] = [
+            'name'      => 'unsigned',
+            'extension' => 'xml',
+            'content'   => $this->request->getUnsignedXml(),
+        ];
+
+        if (!empty($this->data['pdf'])) {
+            $files[] = [
+                'name'      => 'signed',
+                'extension' => 'pdf',
+                'content'   => $this->data['pdf'],
+            ];
+        }
+
+        if (!empty($this->data['png'])) {
+            $files[] = [
+                'name'      => 'signed',
+                'extension' => 'png',
+                'content'   => $this->data['png'],
+            ];
+        }
+
+        if (!empty($this->data['txt'])) {
+            $files[] = [
+                'name'      => 'signed',
+                'extension' => 'txt',
+                'content'   => $this->data['txt'],
+            ];
+        }
+
+        return $files;
     }
 
-    /**
-     * Get response XML
-     *
-     * @return string
-     */
-    public function getUnsignedXml()
-    {
-        return base64_decode($this->request->getParameters()['text2CFDI']);
-    }
+
 }

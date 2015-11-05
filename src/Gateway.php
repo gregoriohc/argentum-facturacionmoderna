@@ -12,6 +12,19 @@ use Argentum\Common\AbstractGateway;
  */
 class Gateway extends AbstractGateway
 {
+    const ERROR_INVALID_USER = 'FM501';
+    const ERROR_MISMATCHED_RFC = 'FM507';
+    const ERROR_UNLISTED_RFC = 'FM402';
+    const ERROR_INVALID_CFDI = '301';
+    const ERROR_INVALID_STAMP = '302';
+    const ERROR_INVALID_CERTIFICATE_NUMBER = '303';
+    const ERROR_REVOKED_CERTIFICATE = '304';
+    const ERROR_EXPIRED_CERTIFICATE = '305';
+    const ERROR_WRONG_SIGNED_CFDI = '306';
+    const ERROR_SIGN_INCLUDED_CFDI = '307';
+    const ERROR_ALREADY_SIGNED_CFDI = '307';
+    const ERROR_WRONG_DATED_CFDI = '401';
+
     /**
      * {@inheritDoc}
      */
@@ -28,7 +41,7 @@ class Gateway extends AbstractGateway
         return array(
             'testMode'                  => false,
             'userId'                    => '',
-            'userPass'                  => '',
+            'userPassword'              => '',
             'issuerRfc'                 => '',
             'issuerCertificateId'       => '',
             'issuerPublicCertificate'   => '',
@@ -63,9 +76,9 @@ class Gateway extends AbstractGateway
      *
      * @return string
      */
-    public function getUserPass()
+    public function getUserPassword()
     {
-        return $this->getParameter('userPass');
+        return $this->getParameter('userPassword');
     }
 
     /**
@@ -74,9 +87,9 @@ class Gateway extends AbstractGateway
      * @param string $value
      * @return $this
      */
-    public function setUserPass($value)
+    public function setUserPassword($value)
     {
-        return $this->setParameter('userPass', $value);
+        return $this->setParameter('userPassword', $value);
     }
 
     /**

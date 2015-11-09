@@ -11,6 +11,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
+        "ext-xsl":  "*",
         "gregoriohc/argentum-common": "~0.1"
     },
     "require-dev": {

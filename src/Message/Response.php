@@ -2,7 +2,6 @@
 
 use Argentum\Common\Message\AbstractResponse;
 use Argentum\Common\Message\ResponseInterface;
-use Argentum\Common\Message\RequestInterface;
 
 /**
  * Facturacion Moderna Response

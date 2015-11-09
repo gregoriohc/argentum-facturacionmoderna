@@ -16,8 +16,8 @@ class SignResponse extends Response
         parent::__construct($request, $data);
 
         // Decode base64 encoded properties
-        foreach(['xml', 'pdf', 'png', 'txt'] as $property){
-            if(isset($this->data[$property])){
+        foreach (['xml', 'pdf', 'png', 'txt'] as $property) {
+            if (isset($this->data[$property])) {
                 $this->data[$property] = base64_decode($this->data[$property]);
             }
         }
@@ -41,7 +41,7 @@ class SignResponse extends Response
                 $xml = simplexml_load_string($this->data['xml']);
                 $xml->registerXPathNamespace("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
                 $tfd = $xml->xpath('//tfd:TimbreFiscalDigital');
-                return (string)$tfd[0]['UUID'];
+                return (string) $tfd[0]['UUID'];
             } catch (\Exception $e) {
                 return false;
             }

@@ -195,7 +195,7 @@ abstract class AbstractRequest extends CommonAbstractRequest
                 'code' => $e->getCode(),
                 'message' => $e->getMessage(),
             ];
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             $response = [
                 'code' => $e->getCode(),
                 'message' => $e->getMessage(),

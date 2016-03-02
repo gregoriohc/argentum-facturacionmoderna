@@ -31,9 +31,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     >
         <cfdi:DomicilioFiscal
             calle="<?php echo $invoice->getFrom()->getAddress()->getAddress_1(); ?>"
-            <?php echo (!empty($invoice->getFrom()->getAddress()->getAddress_2()) ? 'noExterior="'.$invoice->getFrom()->getAddress()->getAddress_2().'"' : ''; ?>
-            <?php echo (!empty($invoice->getFrom()->getAddress()->getAddress_3()) ? 'noInterior="'.$invoice->getFrom()->getAddress()->getAddress_3().'"' : ''; ?>
-            <?php echo (!empty($invoice->getFrom()->getAddress()->getNeighborhood()) ? 'colonia="'.$invoice->getFrom()->getAddress()->getNeighborhood().'"' : ''; ?>
+            <?php echo !empty($invoice->getFrom()->getAddress()->getAddress_2()) ? 'noExterior="'.$invoice->getFrom()->getAddress()->getAddress_2().'"' : ''; ?>
+            <?php echo !empty($invoice->getFrom()->getAddress()->getAddress_3()) ? 'noInterior="'.$invoice->getFrom()->getAddress()->getAddress_3().'"' : ''; ?>
+            <?php echo !empty($invoice->getFrom()->getAddress()->getNeighborhood()) ? 'colonia="'.$invoice->getFrom()->getAddress()->getNeighborhood().'"' : ''; ?>
             municipio="<?php echo $invoice->getFrom()->getAddress()->getLocality(); ?>"
             estado="<?php echo $invoice->getFrom()->getAddress()->getState(); ?>"
             pais="<?php echo $invoice->getFrom()->getAddress()->getCountry(); ?>"
@@ -49,9 +49,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     >
         <cfdi:Domicilio
             calle="<?php echo $invoice->getTo()->getAddress()->getAddress_1(); ?>"
-            <?php echo (!empty($invoice->getTo()->getAddress()->getAddress_2()) ? 'noExterior="'.$invoice->getTo()->getAddress()->getAddress_2().'"' : ''; ?>
-            <?php echo (!empty($invoice->getTo()->getAddress()->getAddress_3()) ? 'noInterior="'.$invoice->getTo()->getAddress()->getAddress_3().'"' : ''; ?>
-            <?php echo (!empty($invoice->getTo()->getAddress()->getNeighborhood()) ? 'colonia="'.$invoice->getTo()->getAddress()->getNeighborhood().'"' : ''; ?>
+            <?php echo !empty($invoice->getTo()->getAddress()->getAddress_2()) ? 'noExterior="'.$invoice->getTo()->getAddress()->getAddress_2().'"' : ''; ?>
+            <?php echo !empty($invoice->getTo()->getAddress()->getAddress_3()) ? 'noInterior="'.$invoice->getTo()->getAddress()->getAddress_3().'"' : ''; ?>
+            <?php echo !empty($invoice->getTo()->getAddress()->getNeighborhood()) ? 'colonia="'.$invoice->getTo()->getAddress()->getNeighborhood().'"' : ''; ?>
             municipio="<?php echo $invoice->getTo()->getAddress()->getLocality(); ?>"
             estado="<?php echo $invoice->getTo()->getAddress()->getState(); ?>"
             pais="<?php echo $invoice->getTo()->getAddress()->getCountry(); ?>"

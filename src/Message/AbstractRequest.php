@@ -8,7 +8,7 @@ use Argentum\Common\Message\AbstractRequest as CommonAbstractRequest;
 abstract class AbstractRequest extends CommonAbstractRequest
 {
     protected $testEndpoint = 'https://t1demo.facturacionmoderna.com/timbrado/wsdl';
-    protected $liveEndpoint = 'https://t1demo.facturacionmoderna.com/timbrado/wsdl';
+    protected $liveEndpoint = 'https://t2.facturacionmoderna.com/timbrado/wsdl';
 
     /**
      * Get user ID

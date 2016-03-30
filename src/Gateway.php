@@ -207,4 +207,15 @@ class Gateway extends AbstractGateway
     {
         return $this->createRequest('\Argentum\FacturacionModerna\Message\SignRequest', $parameters);
     }
+
+    /**
+     * Sign document
+     *
+     * @param array $parameters
+     * @return Message\Response
+     */
+    public function cancel(array $parameters = array())
+    {
+        return $this->createRequest('\Argentum\FacturacionModerna\Message\CancelRequest', $parameters);
+    }
 }

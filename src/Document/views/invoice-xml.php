@@ -17,12 +17,12 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     metodoDePago="<?php echo $invoice->getPaymentMethod(); ?>"
     LugarExpedicion="<?php echo $invoice->getFrom()->getAddress(); ?>"
     subTotal="<?php echo round($invoice->getSubtotal(), 2); ?>"
+    descuento="<?php echo $invoice->getDiscount(); ?>"
     total="<?php echo round($invoice->getTotal(), 2); ?>"
     serie="A"
     folio="<?php echo $invoice->getId(); ?>"
     condicionesDePago="<?php echo $invoice->getPaymentConditions(); ?>"
     NumCtaPago="<?php echo $invoice->getPaymentAccount(); ?>"
-    descuento="<?php echo $invoice->getDiscount(); ?>"
     Moneda="<?php echo $invoice->getCurrency(); ?>"
     >
     <cfdi:Emisor

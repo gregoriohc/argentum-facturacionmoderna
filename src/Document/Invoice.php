@@ -95,7 +95,7 @@ class Invoice extends CommonInvoice
      */
     public function getDiscount()
     {
-        return $this->getParameter('discount');
+        return $this->getDiscountsAmount();
     }
 
     /**
@@ -106,7 +106,7 @@ class Invoice extends CommonInvoice
      */
     public function setDiscount($value)
     {
-        return $this->setParameter('discount', $value);
+        return $this->setDiscounts(['name' => 'Discount', 'amount' => $value]);
     }
 
     /**

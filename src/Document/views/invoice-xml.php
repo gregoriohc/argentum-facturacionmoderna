@@ -48,14 +48,14 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
         rfc="<?php echo $invoice->getTo()->getId(); ?>"
     >
         <cfdi:Domicilio
-            calle="<?php echo $invoice->getTo()->getAddress()->getAddress_1(); ?>"
+            <?php echo !empty($invoice->getTo()->getAddress()->getAddress_1()) ? 'calle="'.$invoice->getTo()->getAddress()->getAddress_1().'"' : ''; ?>
             <?php echo !empty($invoice->getTo()->getAddress()->getAddress_2()) ? 'noExterior="'.$invoice->getTo()->getAddress()->getAddress_2().'"' : ''; ?>
             <?php echo !empty($invoice->getTo()->getAddress()->getAddress_3()) ? 'noInterior="'.$invoice->getTo()->getAddress()->getAddress_3().'"' : ''; ?>
             <?php echo !empty($invoice->getTo()->getAddress()->getNeighborhood()) ? 'colonia="'.$invoice->getTo()->getAddress()->getNeighborhood().'"' : ''; ?>
-            municipio="<?php echo $invoice->getTo()->getAddress()->getLocality(); ?>"
-            estado="<?php echo $invoice->getTo()->getAddress()->getState(); ?>"
+            <?php echo !empty($invoice->getTo()->getAddress()->getPostcode()) ? 'codigoPostal="'.$invoice->getTo()->getAddress()->getPostcode().'"' : ''; ?>
+            <?php echo !empty($invoice->getTo()->getAddress()->getLocality()) ? 'municipio="'.$invoice->getTo()->getAddress()->getLocality().'"' : ''; ?>
+            <?php echo !empty($invoice->getTo()->getAddress()->getState()) ? 'estado="'.$invoice->getTo()->getAddress()->getState().'"' : ''; ?>
             pais="<?php echo $invoice->getTo()->getAddress()->getCountry(); ?>"
-            codigoPostal="<?php echo $invoice->getTo()->getAddress()->getPostcode(); ?>"
         />
     </cfdi:Receptor>
     <cfdi:Conceptos>

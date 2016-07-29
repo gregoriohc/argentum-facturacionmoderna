@@ -69,7 +69,7 @@ class SignRequest extends AbstractRequest
         $xmlDocument = new \DomDocument();
         $xmlDocument->loadXML($xml) or die("Invalid XML");
         $xsltDocument = new \DOMDocument();
-        $xsltDocument->load(__DIR__ . '/../../resources/xslt/3.2/cadenaoriginal_3_2.xslt');
+        $xsltDocument->load(__DIR__.'/../../resources/xslt/3.2/cadenaoriginal_3_2.xslt');
 
         $xsltProcessor = new \XSLTProcessor;
         $xsltProcessor->importStyleSheet($xsltDocument);

@@ -16,15 +16,15 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     formaDePago="<?php echo $invoice->getPaymentType(); ?>"
     metodoDePago="<?php echo $invoice->getPaymentMethod(); ?>"
     LugarExpedicion="<?php echo $invoice->getFrom()->getAddress(); ?>"
-    subTotal="<?php echo round($invoice->getSubtotal(), 2); ?>"
+    subTotal="<?php echo number_format($invoice->getSubtotal(), 4, '.', ''); ?>"
     descuento="<?php echo $invoice->getDiscount(); ?>"
-    total="<?php echo round($invoice->getTotal(), 2); ?>"
+    total="<?php echo number_format($invoice->getTotal(), 4, '.', ''); ?>"
     serie="A"
     folio="<?php echo $invoice->getId(); ?>"
     condicionesDePago="<?php echo $invoice->getPaymentConditions(); ?>"
     NumCtaPago="<?php echo $invoice->getPaymentAccount(); ?>"
     Moneda="<?php echo $invoice->getCurrency(); ?>"
-    >
+>
     <cfdi:Emisor
         nombre="<?php echo $invoice->getFrom()->getName(); ?>"
         rfc="<?php echo $invoice->getFrom()->getId(); ?>"
@@ -61,25 +61,27 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     <cfdi:Conceptos>
         <?php foreach ($invoice->getItems() as $item) : ?>
             <cfdi:Concepto
-                cantidad="<?php echo round($item->getQuantity(), 2); ?>"
+                cantidad="<?php echo number_format($item->getQuantity(), 4, '.', ''); ?>"
                 unidad="<?php echo (!empty($item->getUnit()) ? $item->getUnit() : 'No aplica'); ?>"
                 descripcion="<?php echo $item->getName(); ?>"
-                valorUnitario="<?php echo round($item->getPrice(), 2); ?>"
-                importe="<?php echo round($item->getQuantity() * $item->getPrice(), 2); ?>"
+                valorUnitario="<?php echo number_format($item->getPrice(), 4, '.', ''); ?>"
+                importe="<?php echo number_format($item->getQuantity() * $item->getPrice(), 4, '.', ''); ?>"
             ></cfdi:Concepto>
         <?php endforeach; ?>
     </cfdi:Conceptos>
+    <?php if (count($invoice->getTaxes())) : ?>
     <cfdi:Impuestos
-        totalImpuestosTrasladados="<?php echo $invoice->getTaxesAmount(); ?>"
+        totalImpuestosTrasladados="<?php echo number_format($invoice->getTaxesAmount(), 4, '.', ''); ?>"
     >
         <cfdi:Traslados>
             <?php foreach ($invoice->getTaxes() as $tax) : ?>
                 <cfdi:Traslado
                     impuesto="<?php echo $tax->getName(); ?>"
-                    tasa="<?php echo round($tax->getRate(), 2); ?>"
-                    importe="<?php echo round($tax->getAmount($invoice->getSubtotal()), 2); ?>"
+                    tasa="<?php echo number_format($tax->getRate(), 2, '.', ''); ?>"
+                    importe="<?php echo number_format($tax->getAmount($invoice->getSubtotal()), 4, '.', ''); ?>"
                 ></cfdi:Traslado>
             <?php endforeach; ?>
         </cfdi:Traslados>
     </cfdi:Impuestos>
+    <?php endif; ?>
 </cfdi:Comprobante>

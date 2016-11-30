@@ -39,7 +39,7 @@ class CancelRequest extends AbstractRequest
      */
     public function getData()
     {
-        /** @var \Argentum\Common\Document\Invoice $document */
+        /** @var \Argentum\Common\Document\Invoice|\Argentum\Common\Document\CreditNote $document */
         $document = $this->getDocument();
         $document->validate();
 

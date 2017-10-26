@@ -78,7 +78,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                 <cfdi:Traslado
                     impuesto="<?php echo $tax->getName(); ?>"
                     tasa="<?php echo number_format($tax->getRate(), 2, '.', ''); ?>"
-                    importe="<?php echo number_format($tax->getAmount($creditNote->getSubtotal()), 4, '.', ''); ?>"
+                    importe="<?php echo number_format($tax->getAmount($tax->getBaseAmount()), 4, '.', ''); ?>"
                 ></cfdi:Traslado>
             <?php endforeach; ?>
         </cfdi:Traslados>

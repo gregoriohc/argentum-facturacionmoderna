@@ -40,7 +40,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
             codigoPostal="<?php echo $invoice->getFrom()->getAddress()->getPostcode(); ?>"
         />
         <cfdi:RegimenFiscal
-            Regimen="<?php echo $invoice->getScheme(); ?>"
+            Regimen="<?php echo (!empty($invoice->getFrom()->getFiscalRegime()) ? $invoice->getFrom()->getFiscalRegime() : $invoice->getScheme()); ?>"
         />
     </cfdi:Emisor>
     <cfdi:Receptor
@@ -78,7 +78,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                 <cfdi:Traslado
                     impuesto="<?php echo $tax->getName(); ?>"
                     tasa="<?php echo number_format($tax->getRate(), 2, '.', ''); ?>"
-                    importe="<?php echo number_format($tax->getAmount($invoice->getSubtotal()), 4, '.', ''); ?>"
+                    importe="<?php echo number_format($tax->getAmount($tax->getBaseAmount()), 4, '.', ''); ?>"
                 ></cfdi:Traslado>
             <?php endforeach; ?>
         </cfdi:Traslados>

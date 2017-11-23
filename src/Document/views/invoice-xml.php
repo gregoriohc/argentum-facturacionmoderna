@@ -40,7 +40,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
             codigoPostal="<?php echo $invoice->getFrom()->getAddress()->getPostcode(); ?>"
         />
         <cfdi:RegimenFiscal
-            Regimen="<?php echo $invoice->getScheme(); ?>"
+            Regimen="<?php echo (!empty($invoice->getFrom()->getFiscalRegime()) ? $invoice->getFrom()->getFiscalRegime() : $invoice->getScheme()); ?>"
         />
     </cfdi:Emisor>
     <cfdi:Receptor

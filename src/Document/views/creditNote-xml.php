@@ -40,7 +40,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
             codigoPostal="<?php echo $creditNote->getFrom()->getAddress()->getPostcode(); ?>"
         />
         <cfdi:RegimenFiscal
-            Regimen="<?php echo $creditNote->getScheme(); ?>"
+            Regimen="<?php echo (!empty($creditNote->getFrom()->getFiscalRegime()) ? $creditNote->getFrom()->getFiscalRegime() : $creditNote->getScheme()); ?>"
         />
     </cfdi:Emisor>
     <cfdi:Receptor

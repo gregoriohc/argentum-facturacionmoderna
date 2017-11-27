@@ -19,7 +19,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     subTotal="<?php echo number_format($creditNote->getSubtotal(), 4, '.', ''); ?>"
     descuento="<?php echo $creditNote->getDiscount(); ?>"
     total="<?php echo number_format($creditNote->getTotal(), 4, '.', ''); ?>"
-    serie="A"
+    <?php if (!empty($creditNote->getSerie())) echo 'Serie="' . $creditNote->getSerie() . '"'; ?>
     folio="<?php echo $creditNote->getId(); ?>"
     condicionesDePago="<?php echo $creditNote->getPaymentConditions(); ?>"
     NumCtaPago="<?php echo $creditNote->getPaymentAccount(); ?>"

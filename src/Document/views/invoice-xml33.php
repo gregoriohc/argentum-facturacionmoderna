@@ -12,7 +12,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     NoCertificado=""
     Certificado=""
     Sello=""
-    Serie="A"
+    <?php if (!empty($invoice->getSerie())) echo 'Serie="' . $invoice->getSerie() . '"'; ?>
     Folio="<?php echo $invoice->getId(); ?>"
     Fecha="<?php echo substr($invoice->getDate()->format('c'), 0, 19); ?>"
     LugarExpedicion="<?php echo $invoice->getFrom()->getAddress()->getPostcode(); ?>"
@@ -47,13 +47,13 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
             <?php /** @var \Argentum\Common\Item $item */ ?>
             <cfdi:Concepto
                 ClaveProdServ="<?php echo (!empty($item->getCode()) ? $item->getCode() : '01010101'); ?>"
-                Cantidad="<?php echo number_format($item->getQuantity(), 2, '.', ''); ?>"
+                Cantidad="<?php echo number_format($item->getQuantity(), 6, '.', ''); ?>"
                 ClaveUnidad="<?php echo (!empty($item->getUnitCode()) ? $item->getUnitCode() : 'E48'); ?>"
                 Unidad="<?php echo (!empty($item->getUnit()) ? $item->getUnit() : 'Unidad de servicio'); ?>"
                 Descripcion="<?php echo $item->getName(); ?>"
-                ValorUnitario="<?php echo number_format($item->getPrice(), 2, '.', ''); ?>"
-                Importe="<?php echo number_format($item->getQuantity() * $item->getPrice(), 2, '.', ''); ?>"
-                <?php if ($item->getDiscount() > 0) echo 'Descuento="' . number_format($item->getDiscount(), 2, '.', '') . '"'; ?>
+                ValorUnitario="<?php echo number_format($item->getPrice(), 6, '.', ''); ?>"
+                Importe="<?php echo number_format($item->getQuantity() * $item->getPrice(), 6, '.', ''); ?>"
+                <?php if ($item->getDiscount() > 0) echo 'Descuento="' . number_format($item->getDiscount(), 6, '.', '') . '"'; ?>
             >
                 <?php if (count($item->getTaxes())) : ?>
                     <cfdi:Impuestos>
@@ -61,11 +61,11 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                             <?php foreach ($item->getTaxes() as $tax) : ?>
                                 <?php /** @var \Argentum\Common\Tax $tax */ ?>
                                 <cfdi:Traslado
-                                    Base="<?php echo number_format($item->getBaseAmountForTax(), 2, '.', ''); ?>"
+                                    Base="<?php echo number_format($item->getBaseAmountForTax(), 6, '.', ''); ?>"
                                     Impuesto="<?php echo $tax->getType(); ?>"
                                     TipoFactor="<?php echo (!empty($tax->getRateType()) ? $tax->getRateType() : "Tasa"); ?>"
                                     TasaOCuota="<?php echo number_format($tax->getRate() / 100, 6, '.', ''); ?>"
-                                    Importe="<?php echo number_format($tax->getAmount($item->getBaseAmountForTax()), 2, '.', ''); ?>"
+                                    Importe="<?php echo number_format($tax->getAmount($item->getBaseAmountForTax()), 6, '.', ''); ?>"
                                 />
                             <?php endforeach; ?>
                         </cfdi:Traslados>
@@ -85,7 +85,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                     Impuesto="<?php echo $tax->getType(); ?>"
                     TipoFactor="<?php echo (!empty($tax->getRateType()) ? $tax->getRateType() : "Tasa"); ?>"
                     TasaOCuota="<?php echo number_format($tax->getRate() / 100, 6, '.', ''); ?>"
-                    Importe="<?php echo number_format($tax->getAmount($tax->getBaseAmount()), 2, '.', ''); ?>"
+                    Importe="<?php echo number_format($tax->getAmount($tax->getBaseAmount()), 6, '.', ''); ?>"
                 />
             <?php endforeach; ?>
         </cfdi:Traslados>

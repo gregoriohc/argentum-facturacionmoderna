@@ -19,7 +19,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     subTotal="<?php echo number_format($invoice->getSubtotal(), 4, '.', ''); ?>"
     descuento="<?php echo $invoice->getDiscount(); ?>"
     total="<?php echo number_format($invoice->getTotal(), 4, '.', ''); ?>"
-    serie="A"
+    <?php if (!empty($invoice->getSerie())) echo 'Serie="' . $invoice->getSerie() . '"'; ?>
     folio="<?php echo $invoice->getId(); ?>"
     condicionesDePago="<?php echo $invoice->getPaymentConditions(); ?>"
     NumCtaPago="<?php echo $invoice->getPaymentAccount(); ?>"

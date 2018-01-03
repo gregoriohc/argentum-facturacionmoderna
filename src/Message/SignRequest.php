@@ -164,7 +164,6 @@ class SignRequest extends AbstractRequest
         }
         $xml = $document->render($xmlTemplateCode);
         $xml = $this->stampXml($xml);
-        //if ($document->getType() == 'creditNote') { echo $xml; die(); }
         $this->setUnsignedXml($xml);
 
         $data = [
